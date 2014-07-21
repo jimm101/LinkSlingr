@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "LinkSlingr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Throw a link from one computer to another.",
 
   "browser_action": {
