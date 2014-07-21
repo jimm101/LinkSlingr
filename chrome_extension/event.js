@@ -1,7 +1,8 @@
+var restart_timer;
+
 chrome.storage.sync.get({
     url: 'ws://localhost:7000'
   }, function(items) {
-    console.log(items.url)
     if( items.url.indexOf('ws://')!=0 && items.url.indexOf('wss://')!=0 ) { 
       items.url = "ws://"+items.url; 
     }
@@ -12,14 +13,18 @@ chrome.storage.sync.get({
     
     ws.onopen = function() {
       console.log("websocket opened");
+      clearInterval(restart_timer);
     };
     
-    ws.onclose = function(code) {
-      console.log("websocket closed:"+code);
+    ws.onclose = function(event) {
+      console.log("websocket closed:"+event.code);
+      restart_timer = setInterval(function () {
+        chrome.extension.getBackgroundPage().window.location.reload();  
+      }, 3000);      
     };
     
-    ws.onerror = function (event) {
-      console.log("ERROR:  " + event.data);
+    ws.onerror = function () {
+      console.log("ERROR:  Websocket error.");
     };
     
     ws.onmessage = function(event) {
