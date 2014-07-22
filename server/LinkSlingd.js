@@ -6,14 +6,12 @@ var WebSocketServer = require('ws').Server;
 var wss = new WebSocketServer({port: 7000});
 wss.on('connection', function(ws) {
     connection_count += 1;
-    console.log('connections:'+connection_count);
+    console.log('added connections, '+connection_count+' opened.');
     ws.id = Math.random() * 0x400000000;
     clients[ws.id] = ws;
     timers[ws.id] = setInterval(function() {
       if( ws.readyState == 1 ) { /* web socket open */
         ws.send("ping");
-      } else {
-        console.log('skipping');
       }
     }, 3000);
     ws.on('message', function(message) {
@@ -33,7 +31,6 @@ wss.on('connection', function(ws) {
         delete timers[ws.id];
         delete clients[ws.id];
         connection_count -= 1;
-        console.log('closed connection:'+connection_count);
+        console.log('closed connection, '+connection_count+' still opened.');
     });
-    ws.send('connected');
 });

@@ -32,8 +32,6 @@ chrome.storage.sync.get({
         case 'ping':
           this.send('pong');
           break;
-        case 'connected':
-          break;
         default:
           chrome.tabs.create({'url': event.data}, function(tab) {
             console.log(event.data);
