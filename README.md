@@ -26,7 +26,7 @@ or use [forver](https://github.com/nodejitsu/forever) ``forever LinkSlingd.js``
 
 * Navigate a chrome browser to chrome://extensions/.  
 * Click ``developer mode``.  Click ``Load unpacked extension...`` and select the chrome_extension directory.
-* Click Options.  Under ``LinkSlingr Server URL:`` enter ``host_ip:7000``.
+* Click Options.  Under ``LinkSlingr Server URL:`` enter ``host_ip:14014``.
 
 
 ## License

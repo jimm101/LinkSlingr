@@ -1,0 +1,10 @@
+{
+  "websocket": {
+    "protocol": "ws",
+    "hostname": "localhost",
+    "port": 14014
+  },
+  "test": {
+    "max_open_sockets": 1
+  }
+}
