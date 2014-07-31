@@ -3,7 +3,7 @@ var timers = {};
 var connection_count = 0;
 
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({port: 7000});
+var wss = new WebSocketServer({port: 14014});
 wss.on('connection', function(ws) {
     connection_count += 1;
     console.log('added connections, '+connection_count+' opened.');

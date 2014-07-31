@@ -1,10 +1,10 @@
 var should = require('chai').should();
-
-var websocket_host = "ws://localhost:7000";
 var WebSocket = require('ws');
+var config = require('./config.json');
 
-var WEBSOCKETS_TO_OPEN = 200; 
-
+var websocket_host = config.websocket.protocol + ":" 
+                   + config.websocket.hostname + ":" 
+                   + config.websocket.port;
 describe('LinkSlingd', function () {
   var ws = [];
   describe('websocket', function () {
@@ -15,7 +15,6 @@ describe('LinkSlingd', function () {
           ws[1] = new WebSocket(websocket_host);
           ws[1].onopen = function() { done(); };
       } catch( error ) {
-        console.log(error)
         error.message.should.not.equal("connect ECONNREFUSED");
       }
     });
@@ -49,21 +48,21 @@ describe('LinkSlingd', function () {
         done();
       }
     });
-    it('should open '+WEBSOCKETS_TO_OPEN+' websockets', function(done) {
+    it('should open '+config.test.max_open_sockets+' websockets', function(done) {
+      this.timeout(5000);
       try {
-        var open_counter = 0; 
-        for( var i=0; i<WEBSOCKETS_TO_OPEN; i++ ) {
+        var open_counter = 0;
+        for( var i=0; i<config.test.max_open_sockets; i++ ) {
           ws[i] = new WebSocket(websocket_host);
           ws[i].onopen = function () { 
             open_counter += 1;
-            if( open_counter == WEBSOCKETS_TO_OPEN ) {
+            if( open_counter == config.test.max_open_sockets ) {
               done();
             } 
           };
-          ws[i].onmessage = function (message) {};
-          ws[i].onclose = function (event) {};
-        } 
+        }
       } catch(error) {
+        console.log("ERROR:"+error);
         error.should.not.exist;
       }
     });

@@ -15,7 +15,7 @@ function save_options() {
 
 function restore_options() {
   chrome.storage.sync.get({
-    url: 'localhost:7000'
+    url: 'localhost'
   }, function(items) {
     document.getElementById('url').value = items.url;
   });
